@@ -3,9 +3,9 @@ import numpy as np
 from FASTCorner import fast_corners 
 from HarrisCorner import harris_corners
 
-imagepath = "/Users/alexa/vSLAM/testimages/fasttestimage1.jpg"
+imagepath = "/Users/alexa/vSLAM/testimages/checkers.jpg"
 testimage = cv2.imread(imagepath)
-threshold = 15
+threshold = 10
 pixelnumbers = 12
 #conversion to grayscale
 grayframe = cv2.cvtColor(testimage, cv2.COLOR_BGR2GRAY)
