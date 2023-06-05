@@ -8,7 +8,7 @@ def harris_corners(grayframe, corners, k, N):
     sobely = cv2.Sobel(grayframe, cv2.CV_64F, 0, 1, ksize=5)
     
     # Create a Gaussian kernel
-    gkern = cv2.getGaussianKernel(ksize=5, sigma=-1)
+    gkern = cv2.getGaussianKernel(ksize=5, sigma=1)
     gkern = gkern * gkern.T
     
     # Calculate the R value for every candidate corner

@@ -3,15 +3,14 @@ import numpy as np
 from FASTCorner import fast_corners 
 from HarrisCorner import harris_corners
 
-imagepath = "/Users/alexa/vSLAM/testimages/checkers.jpg"
+imagepath = "/Users/alexa/vSLAM/testimages/fasttestimage3.jpg"
 testimage = cv2.imread(imagepath)
 threshold = 10
 pixelnumbers = 12
 #conversion to grayscale
 grayframe = cv2.cvtColor(testimage, cv2.COLOR_BGR2GRAY)
 fastcorners = fast_corners(grayframe, threshold, pixelnumbers)
-print(fastcorners)
-fastcorners = harris_corners(grayframe, fastcorners, 0.04, 500)
+fastcorners = harris_corners(grayframe, fastcorners, 0.06, 500)
 print(fastcorners)
 
 for corner in fastcorners:
