@@ -76,15 +76,15 @@ def harris_corners(grayframe, corners, k, N):
 
 
 
-imagepath = "/Users/alexa/vSLAM/slamproj/fasttestimage3.jpg"
+imagepath = "/Users/alexa/vSLAM/testimages/fasttestimage3.jpg"
 testimage = cv2.imread(imagepath)
 threshold = 10
 pixelnumbers = 12
 #conversion to grayscale
 grayframe = cv2.cvtColor(testimage, cv2.COLOR_BGR2GRAY)
 fastcorners = fastcornerdetect(grayframe, threshold, pixelnumbers)
-fastcorners = harris_corners(grayframe, fastcorners, 0.04, 20)
-print(fastcorners)
+# fastcorners = harris_corners(grayframe, fastcorners, 0.04, 20)
+# print(fastcorners)
 
 for corner in fastcorners:
     cv2.circle(testimage, corner, radius = 3, color = (0,255,0), thickness = 1)
