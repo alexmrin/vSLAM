@@ -11,6 +11,6 @@ download [iriun webcam](https://iriun.com/) on both phone and pc.
 ### Corner detection vs. threshold
 
 <img
-     src = "fastexperiment/fastcorner_threshold(5)"
+     src = "/fastexperiment/fastcorner_threshold(5)"
      alt = "threshold5"
      title = "Fast Coner Detection (threshold = 5)">
