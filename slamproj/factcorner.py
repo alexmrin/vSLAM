@@ -2,10 +2,7 @@ import cv2
 import numpy as np
 import os
 
-def fastcornerdetect(frame, threshold, diffpixelnum):
-    
-    #comversion to grayscale
-    grayframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+def fastcornerdetect(grayframe, threshold, diffpixelnum):
     
     #height and width of image (pixels)
     height = grayframe.shape[0]
@@ -46,18 +43,52 @@ def fastcornerdetect(frame, threshold, diffpixelnum):
     
     return corners
 
-imagedirectory = r'D:\slamproj\fastsaveimages'
-imagepath = "fasttestimage3.jpg"
+def harris_corners(grayframe, corners, k, N):
+    R_values = []
+    # Calculate the partial derivatives for each pixel
+    sobelx = cv2.Sobel(grayframe, cv2.CV_64F, 1, 0, ksize=5)
+    sobely = cv2.Sobel(grayframe, cv2.CV_64F, 0, 1, ksize=5)
+    
+    # Create a Gaussian kernel
+    gkern = cv2.getGaussianKernel(ksize=5, sigma=-1)
+    gkern = gkern * gkern.T
+    
+    # Calculate the R value for every candidate corner
+    for corner in corners:
+        harris_matrix = np.zeros((2, 2))
+        # calculate the harris matrix by summing each x, y matrix
+        for i in range(25):
+            x = corner[0] - 2 + i // 5
+            y = corner[1] - 2 + i % 5
+            grad = np.array([sobelx[x, y], sobely[x, y]])
+            
+            # Apply the Gaussian window
+            weighted_grad = gkern[i // 5, i % 5] * grad
+            
+            harris_matrix += np.outer(weighted_grad, weighted_grad)
+        # Calculate R value
+        R_value = np.linalg.det(harris_matrix) - k * (np.trace(harris_matrix))**2
+        R_values.append((corner, R_value))
+
+    R_values.sort(key=lambda x: x[1], reverse=True)
+    # Return the top N corners
+    return [pair[0] for pair in R_values[:N]]
+
+
+
+imagepath = "/Users/alexa/vSLAM/slamproj/fasttestimage3.jpg"
 testimage = cv2.imread(imagepath)
 threshold = 10
 pixelnumbers = 12
-fastcorners = fastcornerdetect(testimage, threshold, pixelnumbers)
+#conversion to grayscale
+grayframe = cv2.cvtColor(testimage, cv2.COLOR_BGR2GRAY)
+fastcorners = fastcornerdetect(grayframe, threshold, pixelnumbers)
+fastcorners = harris_corners(grayframe, fastcorners, 0.04, 20)
+print(fastcorners)
 
 for corner in fastcorners:
     cv2.circle(testimage, corner, radius = 3, color = (0,255,0), thickness = 1)
 
 cv2.imshow("corners", testimage)
 cv2.waitKey(0)
-os.chdir(imagedirectory)
-cv2.imwrite("fastcorner_threshold({}).{}".format(threshold, "jpg"), testimage)
 cv2.destroyAllWindows()
