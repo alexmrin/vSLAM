@@ -16,3 +16,9 @@ download [iriun webcam](https://iriun.com/) on both phone and pc.
      title = "Fast Coner Detection (threshold = 5)"
      width = "200"
      height = "200">
+<img
+     src = "/fastexperiment/fastcorner_threshold(10).jpg"
+     alt = "threshold10"
+     title = "Fast Coner Detection (threshold = 10)"
+     width = "200"
+     height = "200">
