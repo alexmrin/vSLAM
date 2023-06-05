@@ -13,6 +13,8 @@ def harris_corners(grayframe, corners, k, N):
     
     # Calculate the R value for every candidate corner
     for corner in corners:
+        if corner[0] < 2 or corner[0] > grayframe.shape[0] - 3 or corner[1] < 2 or corner[1] > grayframe.shape[1] - 3:
+            continue
         harris_matrix = np.zeros((2, 2))
         # calculate the harris matrix by summing each x, y matrix
         for i in range(25):
