@@ -19,9 +19,10 @@ def fastcornerdetect(frame, threshold, diffpixelnum):
                         grayframe[i + 2, j - 1], grayframe[i + 1, j - 2], grayframe[i, j - 3],
                         grayframe[i - 1, j - 2], grayframe[i - 2, j - 1]]
             
-            pixeldiff = np.abs(np.array(patterns) - pixelpos)
-            overthreshold = np.sum(pixeldiff > threshold)
-            underthreshold = np.sum(pixeldiff < threshold)
+            overthresholdvalue = pixelpos + threshold
+            underthresholdvalue = pixelpos - threshold
+            overthreshold = np.sum(np.array(patterns) > overthresholdvalue)
+            underthreshold = np.sum(np.array(patterns) < underthresholdvalue)
             
             if overthreshold >= diffpixelnum or underthreshold >= diffpixelnum:
                 corners.append((j, i))
@@ -29,7 +30,7 @@ def fastcornerdetect(frame, threshold, diffpixelnum):
     return corners
             
 
-imagepath = "testimage path"
+imagepath = "fasttestimage1.jpg"
 testimage = cv2.imread(imagepath)
 threshold = 10
 pixelnumbers = 14
