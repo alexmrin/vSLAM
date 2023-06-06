@@ -1,35 +1,47 @@
 import cv2
 import numpy as np
+from nonmaxsuppression import non_max_suppression
+from numpy import linalg as LA
 
-def harris_corners(grayframe, corners, k, N):
-    R_values = []
-    # Calculate the partial derivatives for each pixel
-    sobelx = cv2.Sobel(grayframe, cv2.CV_64F, 1, 0, ksize=5)
-    sobely = cv2.Sobel(grayframe, cv2.CV_64F, 0, 1, ksize=5)
-    
-    # Create a Gaussian kernel
-    gkern = cv2.getGaussianKernel(ksize=5, sigma=1)
-    gkern = gkern * gkern.T
-    
-    # Calculate the R value for every candidate corner
+
+def harris_corners(gray, corners, window_size = 3, k = 0.04):
+    # Calculate gradients
+    Ix = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=5)
+    Iy = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=5)
+
+    # Calculate products of gradients
+    Ixx = Ix**2
+    Ixy = Iy*Ix
+    Iyy = Iy**2
+
+    corner_list = []
+    offset = window_size//2
+
+    # Apply Harris corner detection
     for corner in corners:
-        if corner[0] < 2 or corner[0] > grayframe.shape[0] - 3 or corner[1] < 2 or corner[1] > grayframe.shape[1] - 3:
+        if corner[0] < 1 or corner[0] > gray.shape[0] - 2 or corner[1] < 1 or corner[1] > gray.shape[1] - 2:
             continue
-        harris_matrix = np.zeros((2, 2))
-        # calculate the harris matrix by summing each x, y matrix
-        for i in range(25):
-            x = corner[0] - 2 + i // 5
-            y = corner[1] - 2 + i % 5
-            grad = np.array([sobelx[x, y], sobely[x, y]])
-            
-            # Apply the Gaussian window
-            weighted_grad = gkern[i // 5, i % 5] * grad
-            
-            harris_matrix += np.outer(weighted_grad, weighted_grad)
-        # Calculate R value
-        R_value = np.linalg.det(harris_matrix) - k * (np.trace(harris_matrix))**2
-        R_values.append((corner, R_value))
+        x = corner[0]
+        y = corner[1]
+        # Calculate sum of squares
+        Sxx = np.sum(Ixx[y-offset:y+offset+1, x-offset:x+offset+1])
+        Syy = np.sum(Iyy[y-offset:y+offset+1, x-offset:x+offset+1])
+        Sxy = np.sum(Ixy[y-offset:y+offset+1, x-offset:x+offset+1])
 
-    R_values.sort(key=lambda x: x[1], reverse=True)
-    # Return the top N corners
-    return [pair[0] for pair in R_values[:N]]
+        # Calculate determinant and trace
+        det = (Sxx * Syy) - (Sxy**2)
+        trace = Sxx + Syy
+
+        # Calculate r for Harris corner response
+        r = det - k*(trace**2)
+
+        # If r is above a threshold, mark it as a corner
+        if r > 10**11:
+            corner_list.append(([x, y], r))
+
+    corner_list.sort(key=lambda x: x[1], reverse=True)
+    corner_list = non_max_suppression(corner_list, 0.4, 100)
+    print([pair[1] for pair in corner_list])
+
+    return [pair for pair in corner_list]
+
