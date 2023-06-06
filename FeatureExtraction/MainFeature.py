@@ -18,6 +18,7 @@ elif userchoice.lower() == "n":
 
 starttime = time.time()
 
+#import image
 testimage = cv2.imread(imagepath)
 threshold = 30
 pixelnumbers = 12
@@ -35,7 +36,7 @@ grayframe = cv2.cvtColor(resizedimage, cv2.COLOR_BGR2GRAY)
 #obtaining corner pixel candidates from FAST
 fastcorners = fast_corners(grayframe, threshold, pixelnumbers)
 harriscorners = harris_corners(grayframe, fastcorners, 0.04, 500)
-# print(fastcorners)
+
 endtime = time.time()
 
 for corner in harriscorners:
