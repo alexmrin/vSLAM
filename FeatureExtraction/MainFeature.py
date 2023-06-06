@@ -34,11 +34,11 @@ grayframe = cv2.cvtColor(resizedimage, cv2.COLOR_BGR2GRAY)
 
 #obtaining corner pixel candidates from FAST
 fastcorners = fast_corners(grayframe, threshold, pixelnumbers)
-#fastcorners = harris_corners(grayframe, fastcorners, 0.04, 500)
+harriscorners = harris_corners(grayframe, fastcorners, 0.04, 500)
 # print(fastcorners)
 endtime = time.time()
 
-for corner in fastcorners:
+for corner in harriscorners:
     cv2.circle(resizedimage, corner, radius = 3, color = (0,255,0), thickness = 1)
 
 #Printing processing time and the resolutions
