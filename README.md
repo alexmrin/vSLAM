@@ -16,12 +16,8 @@ download [iriun webcam](https://iriun.com/) on both phone and pc.
 - Append to a list of corners
 - Repeat for all pixels of the image
 
-<div style="width:400px ; height:400px">
-     
-     ![image](https://github.com/alexmrin/vSLAM/assets/131604147/0f856173-c817-424c-8ee2-c41678a8aa88)
+<img src="https://www.mdpi.com/applsci/applsci-10-00443/article_deploy/html/images/applsci-10-00443-g002.png" height="60" width="60" >
 
-     
-<div>
 
 
 ### Corner detection vs. threshold
