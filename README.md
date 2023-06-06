@@ -17,7 +17,10 @@ download [iriun webcam](https://iriun.com/) on both phone and pc.
 - Repeat for all pixels of the image
 
 <div style="width:400px ; height:400px">
-![image](https://github.com/alexmrin/vSLAM/assets/131604147/31cf6c53-ea18-4c20-b358-fce52fa171fa)
+     
+     ![image](https://github.com/alexmrin/vSLAM/assets/131604147/0f856173-c817-424c-8ee2-c41678a8aa88)
+
+     
 <div>
 
 
