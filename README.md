@@ -8,6 +8,14 @@ download [iriun webcam](https://iriun.com/) on both phone and pc.
 
 ## FAST (Features from Accelerated Segment Test) Algorithm
 
+#### FAST algorithm
+- Choose one pixel and let $I_p$ be its pixel value and let $t$ be the threshold value.
+- Create a Bresenham circle of radius 3 around the pixel
+- Check if there are 3 or more pixels from pixels 1, 5, 9, 13 with pixel value greater than $I_p+t$ or 3 or more pixels with pixel values less than $I_p-t$
+- Check if there are 12 or more pixels from the circle with a pixel value greater than $I_p+t$ or 12 or more pixels with pixel values less than $I_p-t$
+- Append to a list of corners
+- Repeat for all pixels of the image
+
 ### Corner detection vs. threshold
 
 <img
