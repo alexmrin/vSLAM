@@ -18,7 +18,7 @@ download [iriun webcam](https://iriun.com/) on both phone and pc.
 
 <img src="https://www.mdpi.com/applsci/applsci-10-00443/article_deploy/html/images/applsci-10-00443-g002.png" height="500" width="500" >
 
-### Corner detection vs. threshold
+### FAST Corner detection vs. threshold
 
 <img
      src = "/fastexperiment/fastcorner_threshold(5).jpg"
