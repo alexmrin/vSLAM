@@ -40,7 +40,7 @@ def harris_corners(gray, corners, window_size = 3, k = 0.04):
             corner_list.append(([x, y], r))
 
     corner_list.sort(key=lambda x: x[1], reverse=True)
-    print([pair[1] for pair in corner_list])
+    #print([pair[1] for pair in corner_list])
 
     return [pair for pair in corner_list]
 
