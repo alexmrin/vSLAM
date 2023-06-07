@@ -10,15 +10,21 @@ from FASTorientation import fast_angles
 
 
 #user can either bring an image or use the default image to corner detect
-userchoice = input("Do you want to import an image (jpg) to corner detect? (y/n) If no, a default image will be used: ")
-if userchoice.lower() == "y":
-    root = tk.Tk()
-    root.withdraw()
-    imagepath = filedialog.askopenfilename()
-elif userchoice.lower() == "n":
-    imagepath = "/Users/alexa/Desktop/vSLAM/testimages/fasttestimage2.jpg"
+def userchoice():
+    userchoice = input("Do you want to import an image (jpg) to corner detect? (y/n) If no, a default image will be used: ")
+    if userchoice.lower() == "y":
+        root = tk.Tk()
+        root.withdraw()
+        return filedialog.askopenfilename()
+    elif userchoice.lower() == "n":
+        return "fasttestimage2.jpg"
+    else:
+        print("invalid input.") 
+        userchoice()
+
 
 starttime = time.time()
+imagepath = userchoice()
 
 testimage = cv2.imread(imagepath)
 threshold = 5
