@@ -29,6 +29,10 @@ This is the harris matrix we are interested in. The eigenvalues of this matrix r
 
 ![harris_region](https://github.com/alexmrin/vSLAM/assets/118281736/41282209-07d4-4e80-9922-10dc7f243bbf)
 
+### Non-Maximum Suppression
+
+The issue when it comes to finding corners is that there can be multiple pixels defined as a corner for one corner. In order to fix this, we use a technique called non-maxmimum suppression. The idea behind this algorithm is that we take the point with the highest R value in a given area, and remove the other points. This leaves us with only the "highest quality corner" corners for a given area.
+
 ### Intensity Centroid Orientation
 
 The intensity moment from a certain pixel can be found as: $$m_{pq} = \displaystyle\sum_{x, y}x^py^qI(x,y)$$
