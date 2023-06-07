@@ -16,7 +16,7 @@ if userchoice.lower() == "y":
     root.withdraw()
     imagepath = filedialog.askopenfilename()
 elif userchoice.lower() == "n":
-    imagepath = "fasttestimage2.jpg"
+    imagepath = "/Users/alexa/Desktop/vSLAM/testimages/fasttestimage2.jpg"
 
 starttime = time.time()
 

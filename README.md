@@ -18,6 +18,11 @@ download [iriun webcam](https://iriun.com/) on both phone and pc.
 
 <img src="https://www.mdpi.com/applsci/applsci-10-00443/article_deploy/html/images/applsci-10-00443-g002.png" height="500" width="500" >
 
+### Harris Corner Detection
+*After obtaining candidate corner points from FAST, we now further refine and narrow down the actual corners.*
+First we want a function that can calculate the variation in intensity if we move in a small direction $(u, v)$ from our point of interest $(x, y)$. $$E(u, v) = \sum_{x, y} w(x, y) [I(x + u, y + v) - I(x, y)]^2$$ where $I$ is an intensity function. Using the first-order taylor approximation, $$I(x + u, y + v) \approx I(x, y) + uI_x(x, y) + vI_y(x, y)$$ Substituting, we get $$E(u, v) \approx \sum_{x, y} w(x, y) [uI_x(x, y) + vI_y(x, y)]^2 = \sum_{x, y} w(x, y) [u^2I_x(x, y)^2 + uvI_xy(x, y) + v^2I_y(x, y)^2]$$ We can rewrite this in matrix form, $$E(u, v) \approx \begin{bmatrix} u & v \end{bmatrix} \left( \sum_{x, y} w(x, y) \begin{bmatrix} I^2_x & I_xI_y \\ I_xI_y & I^2_y \end{bmatrix} \right) \begin{bmatrix} u \\ v \end{bmatrix}$$ Let $$H = \sum_{x, y} w(x, y) \begin{bmatrix} I^2_x & I_xI_y \\ I_xI_y & I^2_y \end{bmatrix}$$ This is the harris matrix we are interested in. The eigenvalues of this matrix represent the variance in orthogonal directions. If both eigenvalues are large, there is high variance in two directions, meaning that the point of interest is a corner. If one eigenvalue is much larger than the other, it should correspond to an edge, and if both are small, we can think of it as flat. In order to derive an equation for the "cornerness" of a point, we assign it an R-value, $$R = \det(H) - k (\mathrm{trace}(H))^2$$ where a higher R represents a higher quality corner, and k is an experimentally determined constant ($0.04 - 0.06$). We determined a threshold for the minimum value of R and only accepted points above this threshold.
+
+
 ### Intensity Centroid Orientation
 
 For each corner detected, the intensity moment can be calculated as:
