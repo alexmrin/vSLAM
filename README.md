@@ -50,12 +50,13 @@ The angle of the line from the corner to the centroid can be determined as: $$\t
 ## BRIEF (Binary Robust Independent Elementary Feature)
 
 Each corner can be encoded using a binary descriptor: 
+
 $$\tau(p;x,y) = 
 \begin{cases}
-1 & \quad p(x) <br p(y)\\
+1 & \quad p(x) < p(y)\\
 0 & \quad p(x) \geq p(y)
-\end{cases}
-$$
+\end{cases}$$
+
 Where $\tau(p;x,y)$ is the binary test, and $p(x)$ and $p(y)$ are intensities of randomly chosen pixel pair $x$ and $y$
 
 </br>
