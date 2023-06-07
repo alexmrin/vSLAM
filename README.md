@@ -27,6 +27,7 @@ First we want a function that can calculate the variation in intensity if we mov
 Let <br> ![CodeCogsEqn (1)](https://github.com/alexmrin/vSLAM/assets/118281736/7120dee9-aec8-4429-b1b9-de25554d0c71) <br>
 This is the harris matrix we are interested in. The eigenvalues of this matrix represent the variance in orthogonal directions. If both eigenvalues are large, there is high variance in two directions, meaning that the point of interest is a corner. If one eigenvalue is much larger than the other, it should correspond to an edge, and if both are small, we can think of it as flat. In order to derive an equation for the "cornerness" of a point, we assign it an R-value, $$R = \det(H) - k (\mathrm{trace}(H))^2$$ where a higher R represents a higher quality corner, and k is an experimentally determined constant ($0.04 - 0.06$). We determined a threshold for the minimum value of R and only accepted points above this threshold.
 
+![harris_region](https://github.com/alexmrin/vSLAM/assets/118281736/41282209-07d4-4e80-9922-10dc7f243bbf)
 
 ### FAST Corner detection vs. threshold
 
