@@ -32,41 +32,57 @@ $\theta = \arctan2(m_{01}, m_{10})$
 
 Whre $arctan2$ is a quadrant aware version of arctan (accesible from numpy libary)
 
+### Oriented FAST Test
+
+<img
+     src = "/fastexperiment/oFASTfinal.jpg"
+     alt = "woodenblocks"
+     title = "oFAST (woodenblock)"
+     width = "400"
+     height = "400">
+
+<img
+     src = "/fastexperiment/oFASTfinal2.jpg"
+     alt = "rubiccube"
+     title = "oFAST (rubics cube)"
+     width = "250"
+     height = "250">
+
 ### FAST Corner detection vs. threshold
 
 <img
      src = "/fastexperiment/fastcorner_threshold(5).jpg"
      alt = "threshold5"
-     title = "Fast Coner Detection (threshold = 5)"
+     title = "Fast Corner Detection (threshold = 5)"
      width = "300"
      height = "300">
 <img
      src = "/fastexperiment/fastcorner_threshold(10).jpg"
      alt = "threshold10"
-     title = "Fast Coner Detection (threshold = 10)"
+     title = "Fast Corner Detection (threshold = 10)"
      width = "300"
      height = "300">
 <img
      src = "/fastexperiment/fastcorner_threshold(15).jpg"
      alt = "threshold5"
-     title = "Fast Coner Detection (threshold = 15)"
+     title = "Fast Corner Detection (threshold = 15)"
      width = "300"
      height = "300">
 <img
      src = "/fastexperiment/fastcorner_threshold(20).jpg"
      alt = "threshold5"
-     title = "Fast Coner Detection (threshold = 20)"
+     title = "Fast Corner Detection (threshold = 20)"
      width = "300"
      height = "300">
 <img
      src = "/fastexperiment/fastcorner_threshold(25).jpg"
      alt = "threshold5"
-     title = "Fast Coner Detection (threshold = 25)"
+     title = "Fast Corner Detection (threshold = 25)"
      width = "300"
      height = "300">
 <img
      src = "/fastexperiment/fastcorner_threshold(30).jpg"
      alt = "threshold5"
-     title = "Fast Coner Detection (threshold = 30)"
+     title = "Fast Corner Detection (threshold = 30)"
      width = "300"
      height = "300">

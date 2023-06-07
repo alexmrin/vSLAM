@@ -61,6 +61,6 @@ print(f"Process time: {processtime}")
 print(f"width: {resizewidth}, height: {resizeheight}")
 
 #Display corner detected image
-cv2.imshow("corners", resizedimage)
+cv2.imshow("Detected Corners", resizedimage)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
