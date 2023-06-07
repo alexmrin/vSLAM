@@ -31,9 +31,9 @@ This is the harris matrix we are interested in. The eigenvalues of this matrix r
 
 ### Intensity Centroid Orientation
 
-The intensity moment from a certain pixel can be found as:$$m_{pq} = \displaystyle\sum_{x, y}x^py^qI(x,y)$$
+The intensity moment from a certain pixel can be found as: $$m_{pq} = \displaystyle\sum_{x, y}x^py^qI(x,y)$$
 
-The angle of the corner can be determined as:$$\theta = \arctan2(m_{01}, m_{10})$$
+The angle of the corner can be determined as: $$\theta = \arctan2(m_{01}, m_{10})$$
 
 
 ### Oriented FAST Test
