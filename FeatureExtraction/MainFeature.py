@@ -5,6 +5,7 @@ from tkinter import filedialog
 import time
 from FASTCorner import fast_corners
 from HarrisCorner import harris_corners
+from nonmaxsuppression import non_max_suppression
 
 
 #user can either bring an image or use the default image to corner detect
@@ -14,7 +15,7 @@ if userchoice.lower() == "y":
     root.withdraw()
     imagepath = filedialog.askopenfilename()
 elif userchoice.lower() == "n":
-    imagepath = "/Users/alexa/Desktop/vSLAM/testimages/fasttestimage2.jpg"
+    imagepath = "/Users/alexa/Desktop/vSLAM/testimages/checkers.jpg"
 
 starttime = time.time()
 
@@ -35,12 +36,12 @@ grayframe = cv2.cvtColor(resizedimage, cv2.COLOR_BGR2GRAY)
 
 #obtaining corner pixel candidates from FAST
 fastcorners = fast_corners(grayframe, threshold, pixelnumbers)
-print(len(fastcorners))
 harriscorners = harris_corners(grayframe, fastcorners)
+finalcorners = non_max_suppression(harriscorners, 0.75, 100)
 
 endtime = time.time()
 
-for corner in harriscorners:
+for corner in finalcorners:
     cv2.circle(resizedimage, corner[0], radius = 3, color = (0,255,0), thickness = 1)
 
 #Printing processing time and the resolutions
