@@ -42,5 +42,7 @@ def fast_corners(grayframe, threshold, diffpixelnum):
                 #a pixel is a corner if there are n or more pixels in the circle that are overthreshold or underthreshold
                 if overthreshold >= diffpixelnum or underthreshold >= diffpixelnum:
                     corners.append((j, i))
-    
+                    
     return corners
+
+

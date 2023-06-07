@@ -1,14 +1,13 @@
 import cv2
 import numpy as np
+from nonmaxsuppression import non_max_suppression
 from numpy import linalg as LA
 
 
 def harris_corners(gray, corners, window_size = 3, k = 0.04):
-    gray = cv2.GaussianBlur(gray, (5, 5), 1.5)
-
     # Calculate gradients
-    Ix = cv2.Scharr(gray, cv2.CV_64F, 1, 0)
-    Iy = cv2.Scharr(gray, cv2.CV_64F, 0, 1)
+    Ix = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=5)
+    Iy = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=5)
 
     # Calculate products of gradients
     Ixx = Ix**2
@@ -35,10 +34,10 @@ def harris_corners(gray, corners, window_size = 3, k = 0.04):
 
         # Calculate r for Harris corner response
         r = det - k*(trace**2)
-        # If r is above a threshold, mark it as a corner
-        if r > 10**2:
-            corner_list.append(([x, y], r))
 
+        # If r is above a threshold, mark it as a corner
+        if r > 10**11:
+            corner_list.append(([x, y], r))
 
     corner_list.sort(key=lambda x: x[1], reverse=True)
     print([pair[1] for pair in corner_list])

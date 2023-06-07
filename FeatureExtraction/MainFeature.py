@@ -6,6 +6,7 @@ import time
 from FASTCorner import fast_corners
 from HarrisCorner import harris_corners
 from nonmaxsuppression import non_max_suppression
+from FASTorientation import fast_angles
 
 
 #user can either bring an image or use the default image to corner detect
@@ -15,11 +16,10 @@ if userchoice.lower() == "y":
     root.withdraw()
     imagepath = filedialog.askopenfilename()
 elif userchoice.lower() == "n":
-    imagepath = "/Users/alexa/Desktop/vSLAM/testimages/checkers.jpg"
+    imagepath = "fasttestimage2.jpg"
 
 starttime = time.time()
 
-#import image
 testimage = cv2.imread(imagepath)
 threshold = 5
 pixelnumbers = 10
@@ -36,13 +36,24 @@ grayframe = cv2.cvtColor(resizedimage, cv2.COLOR_BGR2GRAY)
 
 #obtaining corner pixel candidates from FAST
 fastcorners = fast_corners(grayframe, threshold, pixelnumbers)
-harriscorners = harris_corners(grayframe, fastcorners)
-finalcorners = non_max_suppression(harriscorners, 0.75, 100)
 
+#running Harris on FAST corner candidates
+harriscorners = harris_corners(grayframe, fastcorners)
+
+#running harris through NMS
+supcorners = non_max_suppression(harriscorners, 0.75, 100)
+
+#calculating corner angles
+cornerangles = fast_angles(grayframe, harriscorners)
 endtime = time.time()
 
-for corner in finalcorners:
-    cv2.circle(resizedimage, corner[0], radius = 3, color = (0,255,0), thickness = 1)
+#print coords, angles, and put circles of corner coords
+for angle in cornerangles:
+    print(f"Angle: {int(angle)}")
+
+for corner in supcorners:
+    print(f"Coord: {corner[0]}")
+    cv2.circle(resizedimage, corner[0], radius = 2, color = (0,255,0), thickness = 2)
 
 #Printing processing time and the resolutions
 processtime = endtime - starttime
