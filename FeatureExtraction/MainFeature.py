@@ -14,14 +14,14 @@ if userchoice.lower() == "y":
     root.withdraw()
     imagepath = filedialog.askopenfilename()
 elif userchoice.lower() == "n":
-    imagepath = "fasttestimage3.jpg"
+    imagepath = "/Users/alexa/Desktop/vSLAM/testimages/fasttestimage2.jpg"
 
 starttime = time.time()
 
 #import image
 testimage = cv2.imread(imagepath)
-threshold = 30
-pixelnumbers = 12
+threshold = 5
+pixelnumbers = 10
 
 #resizing
 resizescale = 50
@@ -35,12 +35,13 @@ grayframe = cv2.cvtColor(resizedimage, cv2.COLOR_BGR2GRAY)
 
 #obtaining corner pixel candidates from FAST
 fastcorners = fast_corners(grayframe, threshold, pixelnumbers)
-harriscorners = harris_corners(grayframe, fastcorners, 0.04, 500)
+print(len(fastcorners))
+harriscorners = harris_corners(grayframe, fastcorners)
 
 endtime = time.time()
 
 for corner in harriscorners:
-    cv2.circle(resizedimage, corner, radius = 3, color = (0,255,0), thickness = 1)
+    cv2.circle(resizedimage, corner[0], radius = 3, color = (0,255,0), thickness = 1)
 
 #Printing processing time and the resolutions
 processtime = endtime - starttime
