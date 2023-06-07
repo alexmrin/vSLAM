@@ -18,6 +18,20 @@ download [iriun webcam](https://iriun.com/) on both phone and pc.
 
 <img src="https://www.mdpi.com/applsci/applsci-10-00443/article_deploy/html/images/applsci-10-00443-g002.png" height="500" width="500" >
 
+### Intensity Centroid Orientation
+
+For each corner detected, the intensity moment can be calculated as:
+
+$m_{pq} = \displaystyle\sum_{x, y}x^py^qI(x, y)$
+
+from -r to r (r: radius of Bresenham circle)
+
+The corner angle can be calculated as:
+
+$\theta = \arctan2(m_{01}, m_{10})$
+
+Whre $arctan2$ is a quadrant aware version of arctan (accesible from numpy libary)
+
 ### FAST Corner detection vs. threshold
 
 <img
