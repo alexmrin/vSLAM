@@ -23,8 +23,9 @@ def userfilechoice():
     return userchoice
 
 
-starttime = time.time()
+
 imagepath = userfilechoice()
+starttime = time.time()
 testimage = cv2.imread(imagepath)
 
 #resizing
