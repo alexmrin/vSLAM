@@ -14,10 +14,10 @@ def hamming_distance(train, query):
 def kmeans_cluster(descriptors, k, iteration):
     #generating random cluster centroids
     clusters = [[] for i in range(k)]
-    initalcentroids = np.random.choice(descriptors, size = k, replace = False)
-    clustersum = initalcentroids
+    initialcentroids = np.random.choice(descriptors, size = k, replace = False)
+    clustersum = initialcentroids
     for j in range(k):
-        clusters[j].append(initialcentroid[j])
+        clusters[j].append(initialcentroids[j])
     
     for descriptor in descriptors:
         hammingdistance = []
