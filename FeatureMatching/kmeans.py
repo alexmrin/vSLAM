@@ -1,11 +1,11 @@
 import numpy as np
 
 def xorgate(a, b):
-    return (a and not b) or (not a and b)
+    return a != b
 
 def hamming_distance(train, query):
     binarydistance = 0
-    for i in len(query):
+    for i in range(len(query)):
         if xorgate(query[i], train[i]):
             binarydistance += 1
             
@@ -19,7 +19,8 @@ def meandescriptor(clustersum):
 
 def kmeans_cluster(descriptors, k, iteration):
     #generating random cluster centroids
-    clustersums = (np.random.choice(descriptors, size = k, replace = False), 1.0)
+    permuted_descriptors = np.random.permutation(descriptors)
+    clustersums = [[list(permuted_descriptors[i]), 1.0] for i in range(k)]
     
     for descriptor in descriptors:
         hammingdistance = []
@@ -32,12 +33,3 @@ def kmeans_cluster(descriptors, k, iteration):
         closestIndex = np.argmin(hammingdistance)
         clustersums[closestIndex][0] = [i + j for i, j in zip(clustersums[closestIndex][0], descriptor)]
         clustersums[closestIndex][1] += 1
-
-        
-
-
-
-            
-                
-        
-        
