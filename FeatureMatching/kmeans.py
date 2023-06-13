@@ -11,19 +11,32 @@ def hamming_distance(train, query):
             
     return(binarydistance)
 
+#returns the mean descriptor of the cluster
+def meandescriptor(clustersum):
+    mean = [i / clustersum[1] for i in clustersum[0]]
+    mean = [round(value) for value in mean]
+    return mean
+
 def kmeans_cluster(descriptors, k, iteration):
     #generating random cluster centroids
-    clusters = [[] for i in range(k)]
-    initialcentroids = np.random.choice(descriptors, size = k, replace = False)
-    clustersum = initialcentroids
-    for j in range(k):
-        clusters[j].append(initialcentroids[j])
+    clustersums = (np.random.choice(descriptors, size = k, replace = False), 1.0)
     
     for descriptor in descriptors:
         hammingdistance = []
-        for centroid in clusters:
-            hammingdistance.append(hamming_distance(descriptor, centroid))     
-        closestcluster = centroid[np.argmin(hammingdistance)]
+        for clustersum in clustersums:
+            #find the mean value of the clustersum
+            meanvalue = meandescriptor(clustersum)
+            hammingdistance.append(hamming_distance(descriptor, meanvalue))     
+
+        #index of cluster closest cluster to descriptor
+        closestIndex = np.argmin(hammingdistance)
+        clustersums[closestIndex][0] = [i + j for i, j in zip(clustersums[closestIndex][0], descriptor)]
+        clustersums[closestIndex][1] += 1
+
+        
+
+
+
             
                 
         
